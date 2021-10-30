@@ -1,0 +1,13 @@
+
+
+
+
+CREATE TABLE commune(
+	code_postal INT(5),
+    nom_commune VARCHAR(25),
+    code_wilaya TINYINT(2),
+     FOREIGN KEY (code_wilaya)
+        REFERENCES wilaya(code_wilaya)
+        ON DELETE CASCADE
+
+)
