@@ -11,3 +11,42 @@ CREATE TABLE commune(
         ON DELETE CASCADE
 
 )
+
+
+SELECT * From citoyen 
+INNER JOIN commune on commune.code_postal = citoyen.code_postal 
+INNER JOIN wilaya on wilaya.code_wilaya = commune.code_wilaya
+LEFT JOIN parent_etranger on citoyen.code_parent = parent_etranger.code_parent;
+
+
+NATURAL JOIN commune
+NATURAL JOIN wilaya
+
+
+
+
+
+
+SELECT nin,num_acte_naissance,nom,prenom, date_naissance, sexe, code_parent, nin1, nin2,code_postal,nom_commune,code_wilaya, nom_parent,prenom_parent,sexe_parent,code_parent From citoyen 
+INNER JOIN commune on commune.code_postal = citoyen.code_postal 
+INNER JOIN wilaya on wilaya.code_wilaya = commune.code_wilaya
+LEFT JOIN parent_etranger on citoyen.code_parent = parent_etranger.code_parent;
+
+
+SELECT * From citoyen 
+
+
+
+
+
+
+
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+CREATE VIEW afficherCitoyen AS 
+SELECT nin,num_acte_naissance,nom,prenom, date_naissance, sexe, code_parent, nin1, nin2,code_postal,nom_commune,code_wilaya, nom_parent,prenom_parent,sexe_parent From citoyen 
+NATURAL JOIN commune 
+NATURAL JOIN wilaya 
+LEFT JOIN parent_etranger on citoyen.code_parent_etrange = parent_etranger.code_parent;
