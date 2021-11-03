@@ -11,8 +11,12 @@ include_once 'connect.php';
                           NATURAL JOIN commune 
                           NATURAL JOIN wilaya 
                           LEFT JOIN parent_etranger on citoyen.code_parent_etrange = parent_etranger.code_parent;");
+    
+    $sql_ajouter = $conn->prepare("CREATE VIEW view_ajouter_citoyen AS
+                          SELECT * FROM citoyen");
     try{
-      $result=$sql->execute();
+      $result = $sql->execute();
+      $result2 = $sql_ajouter->execute();
       $conn = null;
     }catch(Throwable $e){
       $conn = null;
@@ -20,7 +24,7 @@ include_once 'connect.php';
       
     }
  
-    if($result == true){
+    if($result == true && $result2== true){
 
       header("Location: ../index.php?success_views");
 

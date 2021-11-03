@@ -16,7 +16,7 @@ if(isset($_POST['nin']) && isset($_POST['num_act'])&& isset($_POST['nom'])&& iss
     
 
 
-    $sql = $conn->prepare("SELECT COUNT(nin) FROM citoyen WHERE nin = :nin");
+    $sql = $conn->prepare("SELECT COUNT(nin) FROM view_ajouter_citoyen WHERE nin = :nin");
     $sql->bindParam(':nin', $nin);
     $sql->execute();
     
@@ -24,7 +24,7 @@ if(isset($_POST['nin']) && isset($_POST['num_act'])&& isset($_POST['nom'])&& iss
     //$count = $sql->fetchColumn();
     
     if($sql->fetchColumn() == 0){
-      $stmt = $conn->prepare("INSERT INTO citoyen (nin, num_acte_naissance, nom, prenom, date_naissance, sexe)
+      $stmt = $conn->prepare("INSERT INTO view_ajouter_citoyen (nin, num_acte_naissance, nom, prenom, date_naissance, sexe)
       VALUES (:nin, :num_act, :nom, :prenom, :date_naissance, :sexe)");
       $stmt->bindParam(':nin', $nin);
       $stmt->bindParam(':num_act', $num_act);
