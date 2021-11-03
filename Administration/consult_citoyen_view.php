@@ -11,7 +11,7 @@
     <?php 
         include_once 'php/connect.php';
 
-        $citoyens = $conn->query("SELECT * FROM citoyen");
+        $citoyens = $conn->query("SELECT * FROM view_citoyen ");
         $conn = null;
 
 
@@ -29,21 +29,21 @@
             <?php
                 foreach($citoyens as $citoyen){ 
                     echo "<tr> <td>";
-                    echo("$citoyen[0]");
+                    echo("$citoyen[nin]");
 
                     echo("</td><td>");
-                    echo("$citoyen[1]");
+                    echo("$citoyen[num_acte_naissance]");
                     echo("</td><td>");
 
-                    echo("$citoyen[2]");
+                    echo("$citoyen[nom]");
                     echo("</td><td>");
 
-                    echo("$citoyen[3]");
+                    echo("$citoyen[prenom]");
                     echo("</td><td>");
 
-                    echo("$citoyen[4]");
+                    echo("$citoyen[date_naissance]");
                     echo("</td><td>");
-                    if($citoyen[5] == 0){
+                    if($citoyen["sexe"] == 0){
                     echo("Femme");
                     }else{
                     echo("Homme");

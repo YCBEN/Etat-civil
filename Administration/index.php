@@ -9,8 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-<a href="../index.php" class="btn btn-primary mx-5"> Home</a>
-    
+    <div class="container">
     <table class="table center">
         <thead>
             <tr>
@@ -43,27 +42,50 @@
             <td>
                 <form action="php/view_citoyen.php" method="post">
                   <button type="submit" class="btn btn-success" >
-                        Lancer les vue
+                        Lancer la ligne
                   </button>
           
                 </form>
             </td>
             <td>
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ajouter_citoyen">
-                    Ajouter un Citoyen
-              </button>
+            <form action="php/view_off.php" method="post">
+                  <button type="submit" class="btn btn-danger" >
+                        Fermer la ligne
+                  </button>
+          
+                </form>
+
             </td>
             <td>
-              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ajouter_wilaya">
-                  Ajouter une wilaya
-            </button>
+              <a href="../index.php" class="btn btn-primary mx-5"> Acceuil</a>
+
           </td>
             
         
         </tr>
         
     </table>
+    <div class="row">
+     
+      <?php if((isset($_GET['success_views']))):?>
 
+        <div class="p-3 mb-2 bg-success text-white">
+          <h2>ON</h2>
+          <p>La ligne est activée</p>
+        </div>
+        <?php elseif((isset($_GET['success_off_views']))):?>
+
+        <div class="p-3 mb-2 bg-danger text-white">
+          <h2>OFF</h2>
+          <p>La ligne est désactivée</p>
+        </div>                                  
+              
+      <?php endif; ?>
+
+            
+      </div>
+    </div>
+  </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
@@ -146,10 +168,24 @@
     </div>
 </div>
 <?php 
+  if(isset($_GET['success_off_views']) ): ?>
+
+    <script>  
+        alert(['La ligne a eté fermé avec succé'])
+
+    </script>
+<?php elseif(isset($_GET['error_off_views'])):?>
+  <script>  
+        alert(['Erreur pendant la fermeture de la ligne'])
+
+    </script>
+<?php endif; ?>
+
+<?php 
   if(isset($_GET['error_wilaya']) ): ?>
 
     <script>  
-        alert(['La wilaya existe deja'])
+        alert(['La wilaya existe déja'])
 
     </script>
 <?php elseif(isset($_GET['success'])):?>

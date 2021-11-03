@@ -28,7 +28,7 @@
 
                 
                 try{
-                    $sql = $conn->prepare("SELECT * FROM view_citoyens WHERE nin LIKE :nin_user "); 
+                    $sql = $conn->prepare("SELECT * FROM view_citoyen WHERE nin LIKE :nin_user "); 
                     $sql->bindParam(':nin_user',$_REQUEST['nin_user']);
                     
                     $sql->execute();
@@ -43,8 +43,8 @@
                 <hr>
                 <h1 class="h1"> Extrait de naissance pour : 
                     <?php
-                        echo("$result[2] ");
-                        echo("$result[3]");
+                        echo("$result[nom] ");
+                        echo("$result[prenom]");
                     ?>
                 </h1>
                 <h5 class="h5">Informations Personelles:</h5>
@@ -59,21 +59,21 @@
 
             <?php
                     echo "<tr> <td>";
-                    echo($result[0]);
+                    echo($result["nin"]);
 
                     echo("</td><td>");
-                    echo("$result[1]");
+                    echo("$result[num_acte_naissance]");
                     echo("</td><td>");
 
-                    echo("$result[2]");
+                    echo("$result[nom]");
                     echo("</td><td>");
 
-                    echo("$result[3]");
+                    echo("$result[prenom]");
                     echo("</td><td>");
 
-                    echo("$result[4]");
+                    echo("$result[date_naissance]");
                     echo("</td><td>");
-                    if($result[5] == 0){
+                    if($result["sexe"] == 0){
                     echo("Femme");
                     }else{
                     echo("Homme");
@@ -87,22 +87,28 @@
             </table>
             <hr>
             <h5 class="h5">fils de:</h5>
-                    
-            <table class="table  m-3">
+
                         <?php 
-                            if($result[6] != null && $result[14] == 1){
+                            if($result["code_parent"] != null ){
+                                if($result["sexe_parent"] == 1){
+
+                                echo("<table class=\"table  m-3\">");
                                 echo("<h6>Pere etrangé</h6>");
                                 echo("<th>Code Pere</th>");
                                 echo("<th>Nom</th>");
                                 echo("<th>Prenom</th>");
 
-                                echo ("<tr> <td class=\"bg-dark text-white\"> $result[6] </td>");
-                                echo ("<td> $result[12] </td>");
+                                echo ("<tr> <td class=\"bg-dark text-white\"> $result[code_parent] </td>");
+                                echo ("<td> $result[nom_parent] </td>");
 
                                 
 
-                                echo ("<td > $result[13]");}
-                            elseif($result[6] != null && $result[14] == 0)   {
+                                echo ("<td >$result[prenom_parent] ");
+                                echo("</table>");
+                            }
+                                
+                            else {
+                                echo("<table class=\"table  m-3\">");
                                 echo("<th>Mere etrangère</th>");
                                 echo("<th>Code Mere</th>");
                                 echo("<th>Nom</th>");
@@ -110,7 +116,33 @@
 
                                 echo ("<tr> <td class=\"bg-dark text-white\"> $result[6] </td>");
                                 echo ("<td> $result[12] </td>");
+                                echo("</table>");
+                            }}
+                                
+                            if($result["nom_pere"] != null ){
+                                echo("<table class=\"table  m-3\">");
+                                echo("<th>Nom Pere</th>");
+                                echo("<th>Prenom Pere</th>");
+                                
+
+                                echo ("<tr> <td class=\"bg-dark text-white\"> $result[nom_pere] </td>");
+                                echo ("<td> $result[prenom_pere] </td>");
+                                echo("</table>");
+
                             }
+                            if($result["nom_mere"] != null ){
+                                echo("<table class=\"table  m-3\">");
+                                echo("<th>Nom Mere</th>");
+                                echo("<th>Prenom Mere</th>");
+                                
+
+                                echo ("<tr> <td class=\"bg-dark text-white\"> $result[nom_mere] </td>");
+                                echo ("<td> $result[prenom_mere] </td>");
+                                echo("</table>");
+
+                            }
+                            
+                            
                             ?>
                         
                         </td>
@@ -119,58 +151,22 @@
 
             </table>
             <hr>
-        <?php endif; ?>
 
-        <h5 class="h5">Adresse:</h5>
+        <h5 class="h5">Lieu de naissance</h5>
                     
                     <table class="table  m-3">
-                            
-                            
-        
-                          
-        
-                                <?php 
-                                    if($result[6] != null && $result[14] == 1){
-                                        echo("<h6>Pere etrangé</h6>");
-                                        echo("<th>Code Pere</th>");
-                                        echo("<th>Nom</th>");
-                                        echo("<th>Prenom</th>");
-        
-                                        echo ("<tr> <td class=\"bg-dark text-white\"> $result[6] </td>");
-                                        echo ("<td> $result[12] </td>");
-        
-                                        
-        
-                                        echo ("<td > $result[13]");}
-                                    elseif($result[6] != null && $result[14] == 0)   {
-                                        echo("<th>Mere etrangère</th>");
-                                        echo("<th>Code Mere</th>");
-                                        echo("<th>Nom</th>");
-                                        echo("<th>Prenom</th>");
-        
-                                        echo ("<tr> <td class=\"bg-dark text-white\"> $result[6] </td>");
-                                        echo ("<td> $result[12] </td>");
-                                    }
-                                    if($result[7] != null){
-                                        echo("<th>Mere </th>");
-                                        echo("<th>Code Mere</th>");
-                                        echo("<th>Nom</th>");
-                                        echo("<th>Prenom</th>");
-        
-                                        echo ("<tr> <td class=\"bg-dark text-white\"> $result[6] </td>");
-                                        echo ("<td> $result[12] </td>");
-                                        
-
-                                    }
-        
-                                        
-                                     
-                                    print_r($result)
-                                    
-                                    ?>
+                        <th>wilaya</th>
+                        <th>Commune</th>
+                        <tr> 
+                        <td>  
+                                <?php echo($result["nom_wilaya"]);?>
                                 
-                                </td>
-                            </tr>
+                            </td>
+                            <td>  
+                                <?php echo($result["nom_commune"]);?>
+                                
+                            </td>
+                        </tr>
                                
         
                     </table>
@@ -181,6 +177,7 @@
             
            
         </div>
+    <?php endif; ?>
 
 
     </div>
